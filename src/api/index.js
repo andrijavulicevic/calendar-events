@@ -1,28 +1,34 @@
 import { users } from "./mock";
 
+async function simulateLoading(loadingTime = 600) {
+  await new Promise(resolve => setTimeout(resolve, loadingTime));
+}
+
 async function login(email, password) {
+  // set this on top of fn to simulate loading time for both success and error
+  await simulateLoading();
   const existingUser = users.find(user => user.email === email);
 
   if (!existingUser) {
-    throw new Error("UNKNOWN_USER");
+    throw new Error("Invalid credentilas! Please, try again.");
   }
   if (existingUser.password !== password) {
-    throw new Error("INVALID_CREDENTIALS");
+    throw new Error("Invalid credentilas! Please, try again.");
   }
-  return true;
 }
 
 async function register(email, password, confirmPassword) {
+  // set this on top of fn to simulate loading time for both success and error
+  await simulateLoading();
   const existingUser = users.find(user => user.email === email);
 
   if (existingUser) {
-    throw new Error("EMAIL_IN_USE");
+    throw new Error("Email already in use!");
   }
   if (password !== confirmPassword) {
-    throw new Error("PASSWORDS_DONT_MATCH");
+    throw new Error("Passwords do not match!");
   }
   users.push({ email, password });
-  return true;
 }
 
 export { login, register };
