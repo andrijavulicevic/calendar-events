@@ -46,8 +46,9 @@
           :now="today"
           :type="type"
           @click:event="showEvent"
-          @click:more="viewDay"
           @click:date="viewDay"
+          @click:day="openCreateEvent"
+          @click:time="openCreateEvent"
           @change="updateRange"
         ></v-calendar>
         <v-menu
@@ -68,7 +69,13 @@
 </template>
 
 <script>
-import { formatDate } from "../utils/date-utils";
+import {
+  formatDate,
+  getYear,
+  getFullMonth,
+  getDay,
+  nthDay
+} from "../utils/date-utils";
 import CeEventPreviw from "./CeEvent/CeEventPreview";
 
 export default {
@@ -99,12 +106,17 @@ export default {
   computed: {
     title() {
       const { start, end } = this;
+      let startYear, startMonth, startDay;
       if (!start || !end) {
-        return "";
+        startMonth = getFullMonth(this.today);
+        startYear = getYear(this.today);
+        startDay = getDay(this.today) + nthDay(getDay(this.today));
+      } else {
+        startMonth = this.monthFormatter(start);
+        startYear = start.year;
+        startDay = start.day + nthDay(start.day);
       }
-      const startMonth = this.monthFormatter(start);
-      const startYear = start.year;
-      const startDay = start.day + this.nth(start.day);
+
       switch (this.type) {
         case "month":
           return `${startMonth} ${startYear}`;
@@ -156,10 +168,9 @@ export default {
       this.start = start;
       this.end = end;
     },
-    nth(d) {
-      return d > 3 && d < 21
-        ? "th"
-        : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][d % 10];
+    openCreateEvent(date) {
+      console.log(`CLICKED createEvent`);
+      console.log(date);
     }
   }
 };
