@@ -7,10 +7,10 @@
       <v-toolbar-title v-html="event.name"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+        <v-icon>mdi-delete</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+      <v-btn icon @click="closeEventPreview">
+        <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
     <v-card-text>

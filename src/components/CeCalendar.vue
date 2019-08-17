@@ -169,8 +169,7 @@ export default {
       this.end = end;
     },
     openCreateEvent(date) {
-      console.log(`CLICKED createEvent`);
-      console.log(date);
+      this.$emit("openNewEvent", date);
     }
   }
 };
