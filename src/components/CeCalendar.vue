@@ -57,29 +57,10 @@
           full-width
           offset-x
         >
-          <v-card color="grey lighten-4" min-width="350px" flat>
-            <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
-              <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </v-toolbar>
-            <v-card-text>
-              <span v-html="selectedEvent.details"></span>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
-                Cancel
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+          <CeEventPreviw
+            :event="selectedEvent"
+            @closeEvent="selectedOpen = false"
+          />
         </v-menu>
       </v-sheet>
     </v-col>
@@ -88,6 +69,7 @@
 
 <script>
 import { formatDate } from "../utils/date-utils";
+import CeEventPreviw from "./CeEvent/CeEventPreview";
 
 export default {
   props: {
@@ -96,8 +78,8 @@ export default {
       required: true
     }
   },
-  created() {
-    console.log(this.today);
+  components: {
+    CeEventPreviw
   },
   data: () => ({
     today: formatDate(new Date()),
@@ -106,8 +88,7 @@ export default {
     typeToLabel: {
       month: "Month",
       week: "Week",
-      day: "Day",
-      "4day": "4 Days"
+      day: "Day"
     },
     start: null,
     end: null,
@@ -122,19 +103,12 @@ export default {
         return "";
       }
       const startMonth = this.monthFormatter(start);
-      const endMonth = this.monthFormatter(end);
-      const suffixMonth = startMonth === endMonth ? "" : endMonth;
       const startYear = start.year;
-      const endYear = end.year;
-      const suffixYear = startYear === endYear ? "" : endYear;
       const startDay = start.day + this.nth(start.day);
-      const endDay = end.day + this.nth(end.day);
       switch (this.type) {
         case "month":
           return `${startMonth} ${startYear}`;
         case "week":
-        case "4day":
-          return `${startMonth} ${startDay} ${startYear} - ${suffixMonth} ${endDay} ${suffixYear}`;
         case "day":
           return `${startMonth} ${startDay} ${startYear}`;
       }
@@ -179,7 +153,6 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
-      // You could load events from an outside source (like database) now that we have the start and end dates on the calendar
       this.start = start;
       this.end = end;
     },

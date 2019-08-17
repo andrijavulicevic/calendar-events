@@ -15,7 +15,6 @@
 <script>
 import { mapGetters } from "vuex";
 import CeCalendar from "../components/CeCalendar";
-import { LOAD_EVENTS } from '../store/actions.type';
 
 export default {
   name: "home",
