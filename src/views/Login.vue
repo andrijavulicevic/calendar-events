@@ -69,7 +69,7 @@ export default {
   computed: {
     ...mapGetters({
       error: "getError",
-      loading: "getLoading"
+      loading: "getAuthLoading"
     })
   },
   methods: {

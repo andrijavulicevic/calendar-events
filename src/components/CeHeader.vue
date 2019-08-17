@@ -6,9 +6,7 @@
     <v-spacer></v-spacer>
 
     <span v-if="user" class="mr-5">{{ user.email }}</span>
-    <v-btn      
-      @click="logout"
-    >
+    <v-btn @click="logout">
       <span>Logout</span>
     </v-btn>
   </v-app-bar>

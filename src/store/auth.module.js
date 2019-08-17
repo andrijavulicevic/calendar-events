@@ -1,17 +1,22 @@
-import { LOGIN, LOGOUT, REGISTER, RESET_ERROR } from "./actions.type";
+import {
+  LOGIN,
+  LOGOUT,
+  REGISTER,
+  RESET_ERROR,
+  RESET_EVENTS,
+  LOAD_EVENTS
+} from "./actions.type";
 import {
   SET_ERROR,
   SET_USER,
   REMOVE_USER,
-  START_LOADING,
-  STOP_LOADING
+  START_AUTH_LOADING,
+  STOP_AUTH_LOADING
 } from "./mutations.type";
-import { users } from "../api/mock";
 import { login, register } from "../api/index";
 import router from "../router/";
 
 const state = {
-  allUsers: users,
   isLoggedIn: false,
   currentUser: null,
   error: null,
@@ -22,7 +27,7 @@ const getters = {
   getCurrentUser: state => state.currentUser,
   getIsLoggedIn: state => state.isLoggedIn,
   getError: state => state.error,
-  getLoading: state => state.loading
+  getAuthLoading: state => state.loading
 };
 
 const mutations = {
@@ -35,38 +40,40 @@ const mutations = {
     state.isLoggedIn = false;
     state.currentUser = null;
   },
-  [START_LOADING]: state => (state.loading = true),
-  [STOP_LOADING]: state => (state.loading = false)
+  [START_AUTH_LOADING]: state => (state.loading = true),
+  [STOP_AUTH_LOADING]: state => (state.loading = false)
 };
 
 const actions = {
-  [LOGIN]: async ({ commit }, { email, password }) => {
-    commit(START_LOADING);
+  [LOGIN]: async ({ commit, dispatch }, { email, password }) => {
+    commit(START_AUTH_LOADING);
     try {
       await login(email, password);
       commit(SET_USER, { email, password });
       commit(SET_ERROR, null);
-      commit(STOP_LOADING);
+      commit(STOP_AUTH_LOADING);
+      dispatch(LOAD_EVENTS);
       router.push({ name: "home" });
     } catch (error) {
       commit(SET_ERROR, error.message);
-      commit(STOP_LOADING);
+      commit(STOP_AUTH_LOADING);
     }
   },
-  [LOGOUT]: ({ commit }) => {
+  [LOGOUT]: ({ commit, dispatch }) => {
     commit(REMOVE_USER);
+    dispatch(RESET_EVENTS);
     router.push({ name: "login" });
   },
   [REGISTER]: async ({ commit }, { email, password, confirmPassword }) => {
-    commit(START_LOADING);
+    commit(START_AUTH_LOADING);
     try {
       await register(email, password, confirmPassword);
       commit(SET_ERROR, null);
-      commit(STOP_LOADING);
+      commit(STOP_AUTH_LOADING);
       router.push({ name: "login" });
     } catch (error) {
       commit(SET_ERROR, error.message);
-      commit(STOP_LOADING);
+      commit(STOP_AUTH_LOADING);
     }
   },
   [RESET_ERROR]: ({ commit }) => {
