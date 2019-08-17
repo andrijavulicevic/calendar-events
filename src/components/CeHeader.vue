@@ -1,20 +1,31 @@
 <template>
   <v-app-bar app>
-    <v-toolbar-title class="headline text-uppercase">
-      <span>Vuetify</span>
-      <span class="font-weight-light">MATERIAL DESIGN</span>
+    <v-toolbar-title class="headline">
+      <span>Calendar Events</span>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn
-      text
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
+
+    <span v-if="user" class="mr-5">{{ user.email }}</span>
+    <v-btn      
+      @click="logout"
     >
-      <span class="mr-2">Latest Release</span>
+      <span>Logout</span>
     </v-btn>
   </v-app-bar>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+import { LOGOUT } from "../store/actions.type";
+
+export default {
+  computed: {
+    ...mapGetters({ user: "getCurrentUser" })
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch(LOGOUT);
+    }
+  }
+};
 </script>

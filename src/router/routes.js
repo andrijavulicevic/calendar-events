@@ -1,16 +1,24 @@
-import Home from "@/views/Home";
-import Login from "@/views/Login";
+import store from "../store/";
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.getIsLoggedIn) {
+    next();
+    return;
+  }
+  next("/login");
+};
 
 export default [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: () => import("../views/Home"),
+    beforeEnter: ifAuthenticated
   },
   {
     path: "/login",
     name: "login",
-    component: Login
+    component: () => import("../views/Login")
   },
   {
     path: "/register",

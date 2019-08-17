@@ -1,45 +1,45 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
 import Vuetify from "vuetify";
-import Login from "../../src/views/Login";
+import Vuex from "vuex";
+import VeeValidate from "vee-validate";
+import Login from "../../src/views/Login.vue";
 
 const localVue = createLocalVue();
-localVue.use(Vuex);
 localVue.use(Vuetify);
+localVue.use(Vuex);
+localVue.use(VeeValidate);
 
 describe.skip("Login.vue", () => {
-  let store, vuetify;
+  let store, vuetify, getters, actions;
   const stubs = ["router-link"];
 
   beforeEach(() => {
+    getters = {
+      getError: () => "",
+      getLoading: () => false
+    };
+    actions = {
+      login: jest.fn()
+    };
     store = new Vuex.Store({
-      state: {
-        error: "",
-        loading: false
-      },
-      getters: {
-        getError: jest.fn(),
-        getLoading: jest.fn()
-      },
-      actions: {
-        login: jest.fn()
-      }
+      getters,
+      actions
     });
     vuetify = new Vuetify();
   });
 
   it("is a Vue instance", () => {
-    const wrapper = shallowMount(Login, { localVue, store, vuetify });
+    const wrapper = shallowMount(Login, { store, localVue, vuetify, stubs });
     expect(wrapper.isVueInstance()).toBeTruthy();
   });
 
   it("is an Login component", () => {
-    const wrapper = shallowMount(Login, { localVue, store, vuetify });
+    const wrapper = shallowMount(Login, { store, localVue, vuetify, stubs });
     expect(wrapper.is(Login)).toBeTruthy();
   });
 
-  describe("Login data", () => {
-    const wrapper = shallowMount(Login, { localVue, store, vuetify, stubs });
+  describe.skip("Login data", () => {
+    const wrapper = shallowMount(Login, { store, localVue, vuetify, stubs });
     it("has data", () => {
       expect(Login.data).toBeTruthy();
     });
