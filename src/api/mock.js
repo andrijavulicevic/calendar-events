@@ -5,6 +5,16 @@ const users = [
     role: "client"
   },
   {
+    email: "jane@doe.com",
+    password: "password",
+    role: "client"
+  },
+  {
+    email: "jack@doe.com",
+    password: "password",
+    role: "client"
+  },
+  {
     email: "admin@doe.com",
     password: "password",
     role: "organizer"
@@ -17,7 +27,7 @@ const events = [
     name: "Meeting",
     start: "2019-08-28 09:00",
     end: "2019-08-28 09:30",
-    visibility: "private",
+    visibility: "Private",
     details: "Discussing important matters",
     location: "Conf room 1",
     participants: ["admin@doe.com"],
@@ -29,7 +39,7 @@ const events = [
     name: "Another Meeting",
     start: "2019-08-17 11:00",
     end: "2019-08-17 12:30",
-    visibility: "private",
+    visibility: "Private",
     details: "Discussing important matters",
     location: "Conf room 2",
     participants: [],
@@ -41,7 +51,7 @@ const events = [
     name: "Vacation",
     start: "2019-08-29",
     end: "2019-09-06",
-    visibility: "public",
+    visibility: "Public",
     details: "Traveling to Rome",
     location: "Rome",
     participants: ["admin@doe.com"],

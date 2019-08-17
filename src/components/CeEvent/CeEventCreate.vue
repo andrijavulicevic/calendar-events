@@ -86,8 +86,15 @@
             :error-messages="errors.collect('newEvent.details')"
             label="Details"
             data-vv-name="newEvent.details"
-            required
+            data-vv-as="details"
           ></v-textarea>
+
+          <v-select
+            v-model="newEvent.participants"
+            :items="participants"
+            label="Participants"
+            multiple
+          ></v-select>
 
           <v-text-field
             v-model="newEvent.location"
@@ -95,6 +102,7 @@
             :error-messages="errors.collect('newEvent.location')"
             label="Location"
             data-vv-name="newEvent.location"
+            data-vv-as="location"
             required
           ></v-text-field>
         </v-form>
@@ -102,14 +110,18 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="$emit('close')">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="saveEvent">Save</v-btn>
+        <v-btn color="blue darken-1" text :loading="loading" @click="saveEvent"
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import { addDays, isAfter } from 'date-fns';
+import { mapGetters } from "vuex";
+import { addDays, isAfter } from "date-fns";
+import { CREATE_EVENT } from "../../store/actions.type";
 
 export default {
   props: {
@@ -135,28 +147,37 @@ export default {
       visibility: "Private",
       details: "",
       location: "",
+      participants: [],
       color: "blue"
     }
   }),
   computed: {
+    ...mapGetters({
+      loading: "getEventsLoading",
+      participants: "getAllParticipants"
+    }),
     minEndDate() {
       return addDays(new Date(this.newEvent.start), -1).toISOString();
     }
   },
   watch: {
     "newEvent.start": {
-      handler: function (newVal) {
-        console.log(newVal)
+      handler: function(newVal) {
         if (isAfter(new Date(newVal), new Date(this.newEvent.end))) {
           this.newEvent.end = newVal;
         }
       }
-    } 
+    }
   },
   methods: {
     saveEvent() {
       console.log(this.newEvent);
-      // todo
+      this.$validator.validate().then(valid => {
+        if (!valid) return;
+        this.$store.dispatch(CREATE_EVENT, this.newEvent).then(() => {
+          this.$emit("close");
+        });
+      });
     }
   }
 };

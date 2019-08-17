@@ -1,5 +1,6 @@
-import { events } from "./mock";
+import { events, users } from "./mock";
 import { simulateLoading } from "./helpers";
+import { uuidv4 } from "../utils/uuid-generator";
 
 async function loadEventsForUser(userEmail) {
   await simulateLoading();
@@ -8,7 +9,12 @@ async function loadEventsForUser(userEmail) {
 
 async function createEventForUser(event, userEmail) {
   await simulateLoading();
-  event.push({ ...event, owner: userEmail });
+  events.push({ id: uuidv4(), ...event, owner: userEmail });
 }
 
-export { loadEventsForUser, createEventForUser };
+async function loadParticipants() {
+  await simulateLoading();
+  return users.map(user => user.email);
+}
+
+export { loadEventsForUser, createEventForUser, loadParticipants };

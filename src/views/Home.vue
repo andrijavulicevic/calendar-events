@@ -20,6 +20,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { LOAD_ALL_PARTICIPANTS } from "../store/actions.type";
+
 import CeCalendar from "../components/CeCalendar";
 import CeEventCreate from "../components/CeEvent/CeEventCreate";
 
@@ -40,6 +42,7 @@ export default {
   },
   methods: {
     openCreateEvent(date) {
+      this.$store.dispatch(LOAD_ALL_PARTICIPANTS);
       this.selectedDate = date;
       this.showCreateEvent = true;
     },
