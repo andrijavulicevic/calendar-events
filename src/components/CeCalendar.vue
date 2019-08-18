@@ -62,6 +62,7 @@
             :event="selectedEvent"
             @closeEvent="selectedOpen = false"
             @deleteEvent="openDeleteEvent"
+            @editEvent="openEditEvent"
           />
         </v-menu>
       </v-sheet>
@@ -183,6 +184,9 @@ export default {
     },
     openDeleteEvent() {
       this.$emit("openDeleteEvent", this.selectedEvent);
+    },
+    openEditEvent() {
+      this.$emit("openEditEvent", this.selectedEvent);
     }
   }
 };

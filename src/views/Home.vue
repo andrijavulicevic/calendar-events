@@ -8,12 +8,19 @@
               :events="events"
               @openNewEvent="openCreateEvent"
               @openDeleteEvent="openDeleteConfirmation"
+              @openEditEvent="openEditEvent"
             />
 
             <CeEventCreate
               v-if="showCreateEvent"
               :selectedDate="selectedDate"
               @close="closeCreateEvent"
+            />
+
+            <CeEventEdit
+              v-if="showEditEvent"
+              :event="selectedEvent"
+              @close="closeEditEvent"
             />
 
             <CeConfirmAction
@@ -36,6 +43,7 @@ import { LOAD_ALL_PARTICIPANTS, DELETE_EVENT } from "../store/actions.type";
 
 import CeCalendar from "../components/CeCalendar";
 import CeEventCreate from "../components/CeEvent/CeEventCreate";
+import CeEventEdit from "../components/CeEvent/CeEventEdit";
 import CeConfirmAction from "../components/CeConfirmAction";
 
 export default {
@@ -43,11 +51,13 @@ export default {
   components: {
     CeCalendar,
     CeEventCreate,
+    CeEventEdit,
     CeConfirmAction
   },
   data: () => ({
     showCreateEvent: false,
     showDeleteEvent: false,
+    showEditEvent: false,
     selectedAction: "",
     selectedDate: null,
     selectedEvent: null
@@ -80,6 +90,15 @@ export default {
       this.showDeleteEvent = false;
       this.selectedEvent = null;
       this.selectedAction = "";
+    },
+    openEditEvent(event) {
+      this.$store.dispatch(LOAD_ALL_PARTICIPANTS);
+      this.selectedEvent = event;
+      this.showEditEvent = true;
+    },
+    closeEditEvent() {
+      this.showEditEvent = false;
+      this.selectedEvent = null;
     },
     async deleteEvent() {
       await this.$store.dispatch(DELETE_EVENT, this.selectedEvent);

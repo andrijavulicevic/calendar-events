@@ -1,7 +1,7 @@
 <template>
   <v-card min-width="350px" flat>
     <v-toolbar :color="event.color" dark>
-      <v-btn icon>
+      <v-btn icon @click="openEdit">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-toolbar-title v-html="event.name"></v-toolbar-title>
@@ -58,6 +58,9 @@ export default {
     },
     openDelete() {
       this.$emit("deleteEvent");
+    },
+    openEdit() {
+      this.$emit("editEvent");
     }
   }
 };

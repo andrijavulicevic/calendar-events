@@ -3,5 +3,6 @@ export {
   loadEventsForUser,
   createEventForUser,
   loadParticipants,
-  deleteEvent
+  deleteEvent,
+  updateEvent
 } from "./events";

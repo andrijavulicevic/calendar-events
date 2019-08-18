@@ -8,5 +8,6 @@ export const RESET_ERROR = "resetError";
 export const LOAD_EVENTS = "loadEvents";
 export const CREATE_EVENT = "createEvent";
 export const DELETE_EVENT = "deleteEvent";
+export const UPDATE_EVENT = "updateEvent";
 export const RESET_EVENTS = "clearEvents";
 export const LOAD_ALL_PARTICIPANTS = "loadAllParticipants";

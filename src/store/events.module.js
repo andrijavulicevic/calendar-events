@@ -3,7 +3,8 @@ import {
   CREATE_EVENT,
   DELETE_EVENT,
   RESET_EVENTS,
-  LOAD_ALL_PARTICIPANTS
+  LOAD_ALL_PARTICIPANTS,
+  UPDATE_EVENT
 } from "./actions.type";
 import {
   SET_EVENTS,
@@ -17,7 +18,8 @@ import {
   loadEventsForUser,
   createEventForUser,
   loadParticipants,
-  deleteEvent
+  deleteEvent,
+  updateEvent
 } from "../api";
 
 const state = {
@@ -94,6 +96,18 @@ const actions = {
     commit(START_EVENTS_LOADING);
     try {
       await deleteEvent(event, rootState.auth.currentUser);
+      commit(STOP_EVENTS_LOADING);
+      dispatch(LOAD_EVENTS);
+    } catch (error) {
+      console.log(error);
+      commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, error.message);
+    }
+  },
+  [UPDATE_EVENT]: async ({ commit, dispatch, rootState }, event) => {
+    commit(START_EVENTS_LOADING);
+    try {
+      await updateEvent(event, rootState.auth.currentUser);
       commit(STOP_EVENTS_LOADING);
       dispatch(LOAD_EVENTS);
     } catch (error) {
