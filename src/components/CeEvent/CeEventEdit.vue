@@ -3,7 +3,7 @@
     <CeEventForm
       formName="Edit Event"
       formActionName="Update"
-      :initialFormData="event"
+      :initialFormData="adaptedEvent"
       @eventUpdated="updateEvent"
       @close="$emit('close')"
     />
@@ -27,9 +27,35 @@ export default {
   data: () => ({
     dialog: true
   }),
+  computed: {
+    participants() {
+      return this.event.participants.map(participant => participant.email);
+    },
+    adaptedEvent() {
+      return {
+        ...this.event,
+        participants: this.participants
+      };
+    }
+  },
   methods: {
     updateEvent(updatedEvent) {
-      console.log(updatedEvent);
+      const originalParticipants = this.event.participants;
+      const updatedParticipants = updatedEvent.participants;
+      updatedEvent.participants = [];
+      for (const participant of updatedParticipants) {
+        const originalParticipant = originalParticipants.find(
+          o => o.email === participant
+        );
+        if (originalParticipant) {
+          updatedEvent.participants.push(originalParticipant);
+        } else {
+          updatedEvent.participants.push({
+            email: participant,
+            accepted: false
+          });
+        }
+      }
       this.$store.dispatch(UPDATE_EVENT, updatedEvent).then(() => {
         this.$emit("close");
       });

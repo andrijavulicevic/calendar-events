@@ -69,6 +69,7 @@
           label="Details"
           data-vv-name="calendarEvent.details"
           data-vv-as="details"
+          rows="3"
         ></v-textarea>
 
         <v-select
@@ -133,6 +134,11 @@ export default {
         ...this.calendarEvent,
         ...this.initialFormData
       };
+      if (this.initialFormData.participants) {
+        this.calendarEvent.participants = [
+          ...this.initialFormData.participants
+        ];
+      }
     }
   },
   mounted() {
@@ -214,7 +220,6 @@ export default {
       return addDays(new Date(this.chosenStart.date), -1).toISOString();
     },
     executeFormAction() {
-      console.log(this.calendarEvent);
       this.$validator.validate().then(valid => {
         if (!valid) return;
         this.calendarEvent.start = concatDateAndTime(
