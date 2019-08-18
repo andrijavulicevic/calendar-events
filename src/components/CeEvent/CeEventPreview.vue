@@ -1,12 +1,12 @@
 <template>
   <v-card min-width="350px" flat>
     <v-toolbar :color="event.color" dark>
-      <v-btn icon @click="openEdit">
+      <v-btn v-if="enabledEditAndDelete" icon @click="openEdit">
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
       <v-toolbar-title v-html="event.name"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="openDelete">
+      <v-btn v-if="enabledEditAndDelete" icon @click="openDelete">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
       <v-btn icon @click="closeEventPreview">
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: {
     event: {
@@ -56,6 +58,12 @@ export default {
   computed: {
     participants() {
       return this.event.participants.map(participant => participant.email);
+    },
+    ...mapGetters({
+      isOrganizer: "getIsOrganizer"
+    }),
+    enabledEditAndDelete() {
+      return this.event.owned || this.isOrganizer;
     }
   },
   methods: {

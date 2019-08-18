@@ -2,9 +2,19 @@ import { events, users } from "./mock";
 import { simulateLoading } from "./helpers";
 import { uuidv4 } from "../utils/uuid-generator";
 
-async function loadEventsForUser(userEmail) {
+async function loadEventsForUser(user) {
   await simulateLoading();
-  return events.filter(event => event.owner === userEmail);
+  if (user.role === "organizer") return events;
+  return events.filter(event => {
+    if (event.owner === user.email) {
+      event.owned = true;
+      return event;
+    }
+    if (event.visibility === "Public") return event;
+    if (event.participants.find(p => p.email === user.email)) {
+      return event;
+    }
+  });
 }
 
 async function createEventForUser(event, userEmail) {

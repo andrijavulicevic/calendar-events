@@ -52,10 +52,9 @@ const mutations = {
 
 const actions = {
   [LOAD_EVENTS]: async ({ commit, rootState }) => {
-    const userEmail = rootState.auth.currentUser.email;
     commit(START_EVENTS_LOADING);
     try {
-      const events = await loadEventsForUser(userEmail);
+      const events = await loadEventsForUser(rootState.auth.currentUser);
       commit(SET_EVENTS, events);
       commit(STOP_EVENTS_LOADING);
     } catch (error) {

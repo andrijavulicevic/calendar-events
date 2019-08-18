@@ -18,6 +18,7 @@ import router from "../router/";
 
 const state = {
   isLoggedIn: false,
+  isOrganizer: false,
   currentUser: null,
   error: null,
   loading: false
@@ -26,6 +27,7 @@ const state = {
 const getters = {
   getCurrentUser: state => state.currentUser,
   getIsLoggedIn: state => state.isLoggedIn,
+  getIsOrganizer: state => state.isOrganizer,
   getError: state => state.error,
   getAuthLoading: state => state.loading
 };
@@ -35,10 +37,14 @@ const mutations = {
   [SET_USER]: (state, user) => {
     state.isLoggedIn = true;
     state.currentUser = user;
+    if (user.role === "organizer") {
+      state.isOrganizer = true;
+    }
   },
   [REMOVE_USER]: state => {
     state.isLoggedIn = false;
     state.currentUser = null;
+    state.isOrganizer = false;
   },
   [START_AUTH_LOADING]: state => (state.loading = true),
   [STOP_AUTH_LOADING]: state => (state.loading = false)

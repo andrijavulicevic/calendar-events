@@ -57,6 +57,22 @@ const events = [
     participants: [{ email: "admin@doe.com", accepted: false }],
     color: "orange",
     owner: "john@doe.com"
+  },
+  {
+    id: "eceaf5c8-1cf5-4b11-b47c-2ea581970428",
+    name: "Jane's birthday",
+    start: "2019-08-27",
+    end: "2019-08-27",
+    visibility: "Public",
+    details: "Birthday party for Jane",
+    location: "Jane's home",
+    participants: [
+      { email: "john@doe.com", accepted: false },
+      { email: "admin@doe.com", accepted: false },
+      { email: "jack@doe.com", accepted: false }
+    ],
+    color: "orange",
+    owner: "jane@doe.com"
   }
 ];
 
