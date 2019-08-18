@@ -170,6 +170,15 @@ export default {
       this.end = end;
     },
     openCreateEvent(date) {
+      // round time to 30 minutes intervals
+      if (date.time) {
+        const [hour, minutes] = date.time.split(":");
+        if (Number.parseInt(minutes) >= 30) {
+          date.time = `${hour}:${30}`;
+        } else {
+          date.time = `${hour}:00`;
+        }
+      }
       this.$emit("openNewEvent", date);
     },
     openDeleteEvent() {

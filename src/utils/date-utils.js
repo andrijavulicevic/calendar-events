@@ -18,6 +18,11 @@ function getDay(date) {
   return format(date, "DD");
 }
 
+function getTime(date) {
+  const dateString = formatDate(date);
+  return dateString.split(" ")[1];
+}
+
 function nthDay(dayNumber) {
   return dayNumber > 3 && dayNumber < 21
     ? "th"
@@ -26,4 +31,12 @@ function nthDay(dayNumber) {
       ];
 }
 
-export { formatDate, getYear, getFullMonth, getDay, nthDay, DATE_FORMAT };
+export {
+  formatDate,
+  getYear,
+  getFullMonth,
+  getDay,
+  getTime,
+  nthDay,
+  DATE_FORMAT
+};

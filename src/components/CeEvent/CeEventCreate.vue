@@ -22,61 +22,61 @@
 
           <v-layout justify-space-between>
             <v-flex md5>
-              <v-menu
-                ref="menuStart"
-                v-model="menuStart"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                full-width
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="newEvent.start"
-                    label="Start"
-                    prepend-icon="mdi-calendar"
-                    readonly
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="newEvent.start"
-                  @input="menuStart = false"
-                  no-title
-                  scrollable
-                ></v-date-picker>
-              </v-menu>
+              <CeDatePicker
+                label="Start date"
+                :initialDate="chosenStart.date"
+                @dateChanged="setStartDate"
+              />
+            </v-flex>
+            <v-flex md5>
+              <CeDatePicker
+                label="End date"
+                :initialDate="chosenEnd.date"
+                :minDate="chosenEnd.minDate"
+                @dateChanged="setEndDate"
+              />
+            </v-flex>
+          </v-layout>
+
+          <v-layout justify-space-between v-if="!allDayEvent">
+            <!-- <v-flex md5>
+              
             </v-flex>
             <v-flex md5>
               <v-menu
-                ref="menuEnd"
-                v-model="menuEnd"
+                ref="menuTimeEnd"
+                v-model="menuTimeEnd"
                 :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="chosenEnd.time"
                 transition="scale-transition"
                 offset-y
                 full-width
+                max-width="290px"
                 min-width="290px"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="newEvent.end"
-                    label="End"
-                    prepend-icon="mdi-calendar"
+                    v-model="chosenEnd.time"
+                    label="End time"
+                    prepend-icon="mdi-clock"
                     readonly
                     v-on="on"
                   ></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="newEvent.end"
-                  :min="minEndDate"
-                  @input="menuEnd = false"
+                <v-time-picker
+                  v-if="menuTimeEnd"
+                  v-model="chosenEnd.time"
+                  format="24hr"
                   no-title
-                  scrollable
-                ></v-date-picker>
+                  full-width
+                  @click:minute="$refs.menuTimeEnd.save(chosenEnd.time)"
+                ></v-time-picker>
               </v-menu>
-            </v-flex>
+            </v-flex> -->
           </v-layout>
+
+          <v-checkbox v-model="allDayEvent" label="All day event"></v-checkbox>
 
           <v-select
             v-model="newEvent.visibility"
@@ -123,8 +123,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { addDays, isAfter } from "date-fns";
+import { addDays, isAfter, addMinutes } from "date-fns";
 import { CREATE_EVENT } from "../../store/actions.type";
+import { getTime } from "../../utils/date-utils";
+import CeDatePicker from "./CeDatePicker";
 
 export default {
   props: {
@@ -133,15 +135,36 @@ export default {
       required: true
     }
   },
-  created() {
-    console.log(this.selectedDate);
-    this.newEvent.start = this.selectedDate.date;
-    this.newEvent.end = this.selectedDate.date;
+  components: { CeDatePicker },
+  mounted() {
+    this.chosenStart.date = this.selectedDate.date;
+    this.chosenEnd.date = this.selectedDate.date;
+    this.chosenEnd.minDate = this.calculateEndMinDate();
+    if (this.selectedDate.time) {
+      this.allDayEvent = false;
+      this.chosenStart.time = this.selectedDate.time;
+      this.chosenEnd.time = getTime(
+        addMinutes(
+          new Date(`${this.selectedDate.date} ${this.selectedDate.time}`),
+          30
+        )
+      );
+    }
   },
   data: () => ({
     dialog: true,
-    menuStart: false,
-    menuEnd: false,
+    chosenStart: {
+      date: "",
+      time: null
+    },
+    chosenEnd: {
+      date: "",
+      minDate: "",
+      time: null
+    },
+    menuTimeStart: false,
+    menuTimeEnd: false,
+    allDayEvent: true,
     visibilityOptions: ["Private", "Public"],
     newEvent: {
       name: "",
@@ -158,25 +181,34 @@ export default {
     ...mapGetters({
       loading: "getEventsLoading",
       participants: "getAllParticipants"
-    }),
-    minEndDate() {
-      return addDays(new Date(this.newEvent.start), -1).toISOString();
-    }
+    })
   },
   watch: {
-    "newEvent.start": {
+    "chosenStart.date": {
       handler: function(newVal) {
-        if (isAfter(new Date(newVal), new Date(this.newEvent.end))) {
-          this.newEvent.end = newVal;
+        if (isAfter(new Date(newVal), new Date(this.chosenEnd.date))) {
+          this.chosenEnd.date = newVal;
+          this.chosenEnd.minDate = this.calculateEndMinDate();
         }
       }
     }
   },
   methods: {
+    setStartDate(date) {
+      this.chosenStart.date = date;
+    },
+    setEndDate(date) {
+      this.chosenEnd.date = date;
+    },
+    calculateEndMinDate() {
+      return addDays(new Date(this.chosenStart.date), -1).toISOString();
+    },
     saveEvent() {
       console.log(this.newEvent);
       this.$validator.validate().then(valid => {
         if (!valid) return;
+        this.newEvent.start = `${this.chosenStart.date} ${this.chosenStart.time}`.trim();
+        this.newEvent.end = `${this.chosenEnd.date} ${this.chosenEnd.time}`.trim();
         this.$store.dispatch(CREATE_EVENT, this.newEvent).then(() => {
           this.$emit("close");
         });

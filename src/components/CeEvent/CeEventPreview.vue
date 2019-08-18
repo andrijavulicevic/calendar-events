@@ -26,10 +26,7 @@
         <v-flex>
           <v-list>
             <v-subheader>{{ event.participants.length }} guests</v-subheader>
-            <v-list-item
-              v-for="participant in participants"
-              :key="participant"
-            >
+            <v-list-item v-for="participant in participants" :key="participant">
               <v-list-item-icon>
                 <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
