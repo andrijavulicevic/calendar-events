@@ -39,41 +39,20 @@
           </v-layout>
 
           <v-layout justify-space-between v-if="!allDayEvent">
-            <!-- <v-flex md5>
-              
+            <v-flex md5>
+              <CeTimePicker
+                label="Start time"
+                :initialTime="chosenStart.time"
+                @timeChanged="setStartTime"
+              />
             </v-flex>
             <v-flex md5>
-              <v-menu
-                ref="menuTimeEnd"
-                v-model="menuTimeEnd"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="chosenEnd.time"
-                transition="scale-transition"
-                offset-y
-                full-width
-                max-width="290px"
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="chosenEnd.time"
-                    label="End time"
-                    prepend-icon="mdi-clock"
-                    readonly
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-time-picker
-                  v-if="menuTimeEnd"
-                  v-model="chosenEnd.time"
-                  format="24hr"
-                  no-title
-                  full-width
-                  @click:minute="$refs.menuTimeEnd.save(chosenEnd.time)"
-                ></v-time-picker>
-              </v-menu>
-            </v-flex> -->
+              <CeTimePicker
+                label="End time"
+                :initialTime="chosenEnd.time"
+                @timeChanged="setEndTime"
+              />
+            </v-flex>
           </v-layout>
 
           <v-checkbox v-model="allDayEvent" label="All day event"></v-checkbox>
@@ -127,6 +106,7 @@ import { addDays, isAfter, addMinutes } from "date-fns";
 import { CREATE_EVENT } from "../../store/actions.type";
 import { getTime } from "../../utils/date-utils";
 import CeDatePicker from "./CeDatePicker";
+import CeTimePicker from "./CeTimePicker";
 
 export default {
   props: {
@@ -135,7 +115,7 @@ export default {
       required: true
     }
   },
-  components: { CeDatePicker },
+  components: { CeDatePicker, CeTimePicker },
   mounted() {
     this.chosenStart.date = this.selectedDate.date;
     this.chosenEnd.date = this.selectedDate.date;
@@ -191,6 +171,17 @@ export default {
           this.chosenEnd.minDate = this.calculateEndMinDate();
         }
       }
+    },
+    allDayEvent(newVal) {
+      if (!newVal) {
+        if (!this.chosenStart.time) {
+          this.chosenStart.time = "12:00";
+          this.chosenEnd.time = "12:30";
+        }
+      } else {
+        this.chosenStart.time = null;
+        this.chosenEnd.time = null;
+      }
     }
   },
   methods: {
@@ -199,6 +190,13 @@ export default {
     },
     setEndDate(date) {
       this.chosenEnd.date = date;
+    },
+    setStartTime(time) {
+      console.log(time);
+      this.chosenStart.time = time;
+    },
+    setEndTime(time) {
+      this.chosenEnd.time = time;
     },
     calculateEndMinDate() {
       return addDays(new Date(this.chosenStart.date), -1).toISOString();
