@@ -16,6 +16,7 @@
                 data-vv-name="email"
                 required
                 @focus="onFocus"
+                @keydown.enter="login"
               ></v-text-field>
 
               <v-text-field
@@ -27,6 +28,7 @@
                 data-vv-name="password"
                 required
                 @focus="onFocus"
+                @keydown.enter="login"
               ></v-text-field>
 
               <v-layout v-if="error" class="mt-3">

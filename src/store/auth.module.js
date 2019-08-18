@@ -4,7 +4,8 @@ import {
   REGISTER,
   RESET_ERROR,
   RESET_EVENTS,
-  LOAD_EVENTS
+  LOAD_EVENTS,
+  LOAD_PENDING_EVENTS
 } from "./actions.type";
 import {
   SET_AUTH_ERROR,
@@ -59,6 +60,7 @@ const actions = {
       commit(SET_AUTH_ERROR, null);
       commit(STOP_AUTH_LOADING);
       dispatch(LOAD_EVENTS);
+      dispatch(LOAD_PENDING_EVENTS);
       router.push({ name: "home" });
     } catch (error) {
       commit(SET_AUTH_ERROR, error.message);

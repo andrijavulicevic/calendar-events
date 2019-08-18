@@ -1,13 +1,17 @@
 import {
   LOAD_EVENTS,
+  LOAD_PENDING_EVENTS,
   CREATE_EVENT,
   DELETE_EVENT,
   RESET_EVENTS,
   LOAD_ALL_PARTICIPANTS,
-  UPDATE_EVENT
+  UPDATE_EVENT,
+  ACCEPT_EVENT_INVITE,
+  DECLINE_EVENT_INVITE
 } from "./actions.type";
 import {
   SET_EVENTS,
+  SET_PENDING_EVENTS,
   REMOVE_EVENTS,
   START_EVENTS_LOADING,
   STOP_EVENTS_LOADING,
@@ -16,14 +20,18 @@ import {
 } from "./mutations.type";
 import {
   loadEventsForUser,
+  loadPendingEvents,
   createEventForUser,
   loadParticipants,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  acceptInvite,
+  declineInvite
 } from "../api";
 
 const state = {
   events: [],
+  pendingEvents: [],
   error: null,
   allParticipants: [],
   loading: false
@@ -31,6 +39,7 @@ const state = {
 
 const getters = {
   getEvents: state => state.events,
+  getPendingEvents: state => state.pendingEvents,
   getEventsError: state => state.error,
   getAllParticipants: state => state.allParticipants,
   getEventsLoading: state => state.loading
@@ -47,7 +56,8 @@ const mutations = {
   [SET_ALL_PARTICIPANTS]: (state, allParticipants) => {
     state.allParticipants = allParticipants;
   },
-  [SET_EVENTS_ERROR]: (state, error) => (state.error = error)
+  [SET_EVENTS_ERROR]: (state, error) => (state.error = error),
+  [SET_PENDING_EVENTS]: (state, events) => (state.pendingEvents = events)
 };
 
 const actions = {
@@ -96,6 +106,7 @@ const actions = {
     try {
       await deleteEvent(event, rootState.auth.currentUser);
       commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, null);
       dispatch(LOAD_EVENTS);
     } catch (error) {
       console.log(error);
@@ -108,12 +119,36 @@ const actions = {
     try {
       await updateEvent(event, rootState.auth.currentUser);
       commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, null);
       dispatch(LOAD_EVENTS);
     } catch (error) {
       console.log(error);
       commit(STOP_EVENTS_LOADING);
       commit(SET_EVENTS_ERROR, error.message);
     }
+  },
+  [LOAD_PENDING_EVENTS]: async ({ commit, rootState }) => {
+    commit(START_EVENTS_LOADING);
+    try {
+      const events = await loadPendingEvents(rootState.auth.currentUser);
+      commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, null);
+      commit(SET_PENDING_EVENTS, events);
+    } catch (error) {
+      console.log(error);
+      commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, error.message);
+    }
+  },
+  [ACCEPT_EVENT_INVITE]: ({ dispatch, rootState }, eventId) => {
+    acceptInvite(eventId, rootState.auth.currentUser);
+    dispatch(LOAD_PENDING_EVENTS);
+    dispatch(LOAD_EVENTS);
+  },
+  [DECLINE_EVENT_INVITE]: ({ dispatch, rootState }, eventId) => {
+    declineInvite(eventId, rootState.auth.currentUser);
+    dispatch(LOAD_PENDING_EVENTS);
+    dispatch(LOAD_EVENTS);
   }
 };
 

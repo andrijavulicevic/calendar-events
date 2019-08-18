@@ -47,6 +47,18 @@ const events = [
     owner: "john@doe.com"
   },
   {
+    id: "bef1f1c2-55b4-46b7-ba5d-6306e9b762aa",
+    name: "Breefing",
+    start: "2019-08-17 13:00",
+    end: "2019-08-17 13:30",
+    visibility: "Private",
+    details: "Breefing about new project",
+    location: "Conf room 2",
+    participants: [{ email: "john@doe.com", accepted: false }],
+    color: "green",
+    owner: "jane@doe.com"
+  },
+  {
     id: "d2699f4d-cb57-446d-b585-fd3f8481fc5c",
     name: "Vacation",
     start: "2019-08-29",

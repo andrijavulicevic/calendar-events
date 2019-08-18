@@ -16,6 +16,7 @@
                 data-vv-name="email"
                 required
                 @focus="onFocus"
+                @keydown.enter="register"
               ></v-text-field>
 
               <v-text-field
@@ -28,6 +29,7 @@
                 required
                 ref="password"
                 @focus="onFocus"
+                @keydown.enter="register"
               ></v-text-field>
 
               <v-text-field
@@ -40,6 +42,7 @@
                 data-vv-as="confirm password"
                 required
                 @focus="onFocus"
+                @keydown.enter="register"
               ></v-text-field>
 
               <v-layout v-if="error" class="mt-3">
@@ -56,7 +59,7 @@
                 </v-flex>
                 <v-flex>
                   <v-layout justify-end="">
-                    <v-btn class="mt-5" @click="login" :loading="loading"
+                    <v-btn class="mt-5" @click="register" :loading="loading"
                       >Register</v-btn
                     >
                   </v-layout>
@@ -87,7 +90,7 @@ export default {
     })
   },
   methods: {
-    login() {
+    register() {
       this.$validator.validate().then(valid => {
         if (!valid) return;
         const newUser = {

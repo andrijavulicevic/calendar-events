@@ -11,8 +11,18 @@ async function loadEventsForUser(user) {
       return event;
     }
     if (event.visibility === "Public") return event;
-    if (event.participants.find(p => p.email === user.email)) {
+    if (event.participants.find(p => p.email === user.email && p.accepted)) {
       return event;
+    }
+  });
+}
+
+async function loadPendingEvents(user) {
+  await simulateLoading();
+  return events.filter(event => {
+    if (event.participants.length === 0) return false;
+    if (event.participants.find(p => p.email === user.email && !p.accepted)) {
+      return true;
     }
   });
 }
@@ -45,10 +55,29 @@ async function updateEvent(event, user) {
   events.splice(indexOfSelectedEvent, 1, event);
 }
 
+function acceptInvite(eventId, user) {
+  const event = events.find(event => event.id === eventId);
+  if (!event) throw new Error("Unknown event");
+  const participant = event.participants.find(p => p.email === user.email);
+  participant.accepted = true;
+}
+
+function declineInvite(eventId, user) {
+  const event = events.find(event => event.id === eventId);
+  if (!event) throw new Error("Unknown event");
+  const participantIndex = event.participants.findIndex(
+    p => p.email === user.email
+  );
+  event.participants.splice(participantIndex, 1);
+}
+
 export {
   loadEventsForUser,
+  loadPendingEvents,
   createEventForUser,
   loadParticipants,
   deleteEvent,
-  updateEvent
+  updateEvent,
+  acceptInvite,
+  declineInvite
 };
