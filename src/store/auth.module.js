@@ -7,7 +7,7 @@ import {
   LOAD_EVENTS
 } from "./actions.type";
 import {
-  SET_ERROR,
+  SET_AUTH_ERROR,
   SET_USER,
   REMOVE_USER,
   START_AUTH_LOADING,
@@ -31,7 +31,7 @@ const getters = {
 };
 
 const mutations = {
-  [SET_ERROR]: (state, error) => (state.error = error),
+  [SET_AUTH_ERROR]: (state, error) => (state.error = error),
   [SET_USER]: (state, user) => {
     state.isLoggedIn = true;
     state.currentUser = user;
@@ -50,12 +50,12 @@ const actions = {
     try {
       await login(email, password);
       commit(SET_USER, { email, password });
-      commit(SET_ERROR, null);
+      commit(SET_AUTH_ERROR, null);
       commit(STOP_AUTH_LOADING);
       dispatch(LOAD_EVENTS);
       router.push({ name: "home" });
     } catch (error) {
-      commit(SET_ERROR, error.message);
+      commit(SET_AUTH_ERROR, error.message);
       commit(STOP_AUTH_LOADING);
     }
   },
@@ -68,16 +68,16 @@ const actions = {
     commit(START_AUTH_LOADING);
     try {
       await register(email, password, confirmPassword);
-      commit(SET_ERROR, null);
+      commit(SET_AUTH_ERROR, null);
       commit(STOP_AUTH_LOADING);
       router.push({ name: "login" });
     } catch (error) {
-      commit(SET_ERROR, error.message);
+      commit(SET_AUTH_ERROR, error.message);
       commit(STOP_AUTH_LOADING);
     }
   },
   [RESET_ERROR]: ({ commit }) => {
-    commit(SET_ERROR, null);
+    commit(SET_AUTH_ERROR, null);
   }
 };
 

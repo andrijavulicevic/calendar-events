@@ -17,4 +17,13 @@ async function loadParticipants() {
   return users.map(user => user.email);
 }
 
-export { loadEventsForUser, createEventForUser, loadParticipants };
+async function deleteEvent(event, user) {
+  await simulateLoading();
+  if (event.owner !== user.email && user.role !== "organizer") {
+    throw new Error("You can not delete other people events!");
+  }
+  const indexOfSelectedEvent = events.findIndex(e => e.id === event.id);
+  events.splice(indexOfSelectedEvent, 1);
+}
+
+export { loadEventsForUser, createEventForUser, loadParticipants, deleteEvent };

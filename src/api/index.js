@@ -2,5 +2,6 @@ export { login, register } from "./auth";
 export {
   loadEventsForUser,
   createEventForUser,
-  loadParticipants
+  loadParticipants,
+  deleteEvent
 } from "./events";

@@ -61,6 +61,7 @@
           <CeEventPreviw
             :event="selectedEvent"
             @closeEvent="selectedOpen = false"
+            @deleteEvent="openDeleteEvent"
           />
         </v-menu>
       </v-sheet>
@@ -170,6 +171,9 @@ export default {
     },
     openCreateEvent(date) {
       this.$emit("openNewEvent", date);
+    },
+    openDeleteEvent() {
+      this.$emit("openDeleteEvent", this.selectedEvent);
     }
   }
 };

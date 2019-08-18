@@ -1,6 +1,7 @@
 import {
   LOAD_EVENTS,
   CREATE_EVENT,
+  DELETE_EVENT,
   RESET_EVENTS,
   LOAD_ALL_PARTICIPANTS
 } from "./actions.type";
@@ -9,22 +10,26 @@ import {
   REMOVE_EVENTS,
   START_EVENTS_LOADING,
   STOP_EVENTS_LOADING,
-  SET_ALL_PARTICIPANTS
+  SET_ALL_PARTICIPANTS,
+  SET_EVENTS_ERROR
 } from "./mutations.type";
 import {
   loadEventsForUser,
   createEventForUser,
-  loadParticipants
+  loadParticipants,
+  deleteEvent
 } from "../api";
 
 const state = {
   events: [],
+  error: null,
   allParticipants: [],
   loading: false
 };
 
 const getters = {
   getEvents: state => state.events,
+  getEventsError: state => state.error,
   getAllParticipants: state => state.allParticipants,
   getEventsLoading: state => state.loading
 };
@@ -39,7 +44,8 @@ const mutations = {
   [STOP_EVENTS_LOADING]: state => (state.loading = false),
   [SET_ALL_PARTICIPANTS]: (state, allParticipants) => {
     state.allParticipants = allParticipants;
-  }
+  },
+  [SET_EVENTS_ERROR]: (state, error) => (state.error = error)
 };
 
 const actions = {
@@ -57,6 +63,10 @@ const actions = {
   [CREATE_EVENT]: async ({ commit, dispatch, rootState }, newEvent) => {
     commit(START_EVENTS_LOADING);
     try {
+      newEvent.participants = newEvent.participants.map(participant => ({
+        email: participant,
+        accepted: false
+      }));
       await createEventForUser(newEvent, rootState.auth.currentUser.email);
       commit(STOP_EVENTS_LOADING);
       dispatch(LOAD_EVENTS);
@@ -78,6 +88,18 @@ const actions = {
       );
     } catch (error) {
       console.log(error);
+    }
+  },
+  [DELETE_EVENT]: async ({ commit, dispatch, rootState }, event) => {
+    commit(START_EVENTS_LOADING);
+    try {
+      await deleteEvent(event, rootState.auth.currentUser);
+      commit(STOP_EVENTS_LOADING);
+      dispatch(LOAD_EVENTS);
+    } catch (error) {
+      console.log(error);
+      commit(STOP_EVENTS_LOADING);
+      commit(SET_EVENTS_ERROR, error.message);
     }
   }
 };

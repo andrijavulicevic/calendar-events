@@ -3,6 +3,10 @@
     <v-card class="elevation-12">
       <v-toolbar color="primary" dark flat>
         <v-toolbar-title>Create New Event</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon @click="$emit('close')">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </v-toolbar>
       <v-card-text>
         <v-form>
@@ -12,7 +16,7 @@
             :error-messages="errors.collect('newEvent.name')"
             label="Name"
             data-vv-name="newEvent.name"
-            data-vv-name-as="name"
+            data-vv-as="name"
             required
           ></v-text-field>
 
@@ -109,7 +113,6 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="$emit('close')">Close</v-btn>
         <v-btn color="blue darken-1" text :loading="loading" @click="saveEvent"
           >Save</v-btn
         >

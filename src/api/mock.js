@@ -30,12 +30,12 @@ const events = [
     visibility: "Private",
     details: "Discussing important matters",
     location: "Conf room 1",
-    participants: ["admin@doe.com"],
+    participants: [{ email: "admin@doe.com", accepted: true }],
     color: "blue",
     owner: "john@doe.com"
   },
   {
-    id: "4f508e72-3ce8-49e4-94d2-5ab61ad7d993",
+    id: "fcfc8b54-b4be-4397-b028-ff75d8cec8ee",
     name: "Another Meeting",
     start: "2019-08-17 11:00",
     end: "2019-08-17 12:30",
@@ -54,7 +54,7 @@ const events = [
     visibility: "Public",
     details: "Traveling to Rome",
     location: "Rome",
-    participants: ["admin@doe.com"],
+    participants: [{ email: "admin@doe.com", accepted: false }],
     color: "orange",
     owner: "john@doe.com"
   }

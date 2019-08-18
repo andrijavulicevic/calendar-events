@@ -4,12 +4,24 @@
       <v-flex>
         <v-layout justify-center>
           <v-flex md10>
-            <CeCalendar :events="events" @openNewEvent="openCreateEvent" />
+            <CeCalendar
+              :events="events"
+              @openNewEvent="openCreateEvent"
+              @openDeleteEvent="openDeleteConfirmation"
+            />
 
             <CeEventCreate
               v-if="showCreateEvent"
               :selectedDate="selectedDate"
               @close="closeCreateEvent"
+            />
+
+            <CeConfirmAction
+              v-if="showDeleteEvent"
+              actionName="Delete event?"
+              :actionMessage="actionMessage"
+              @close="closeDeleteConfirmation"
+              @confirm="deleteEvent"
             />
           </v-flex>
         </v-layout>
@@ -20,25 +32,34 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { LOAD_ALL_PARTICIPANTS } from "../store/actions.type";
+import { LOAD_ALL_PARTICIPANTS, DELETE_EVENT } from "../store/actions.type";
 
 import CeCalendar from "../components/CeCalendar";
 import CeEventCreate from "../components/CeEvent/CeEventCreate";
+import CeConfirmAction from "../components/CeConfirmAction";
 
 export default {
   name: "home",
   components: {
     CeCalendar,
-    CeEventCreate
+    CeEventCreate,
+    CeConfirmAction
   },
   data: () => ({
     showCreateEvent: false,
-    selectedDate: null
+    showDeleteEvent: false,
+    selectedAction: "",
+    selectedDate: null,
+    selectedEvent: null
   }),
   computed: {
     ...mapGetters({
       events: "getEvents"
-    })
+    }),
+    actionMessage() {
+      return `Are you sure you want to delete <span class="font-weight-bold">${this.selectedEvent.name}</span> from calendar? 
+        This action can not be undone.`;
+    }
   },
   methods: {
     openCreateEvent(date) {
@@ -49,6 +70,20 @@ export default {
     closeCreateEvent() {
       this.showCreateEvent = false;
       this.selectedDate = null;
+    },
+    openDeleteConfirmation(event) {
+      this.selectedAction = DELETE_EVENT;
+      this.selectedEvent = event;
+      this.showDeleteEvent = true;
+    },
+    closeDeleteConfirmation() {
+      this.showDeleteEvent = false;
+      this.selectedEvent = null;
+      this.selectedAction = "";
+    },
+    async deleteEvent() {
+      await this.$store.dispatch(DELETE_EVENT, this.selectedEvent);
+      this.closeDeleteConfirmation();
     }
   }
 };
