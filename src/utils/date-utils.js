@@ -31,6 +31,11 @@ function nthDay(dayNumber) {
       ];
 }
 
+function concatDateAndTime(date, time) {
+  if (!time) return date;
+  return `${date} ${time}`;
+}
+
 export {
   formatDate,
   getYear,
@@ -38,5 +43,6 @@ export {
   getDay,
   getTime,
   nthDay,
+  concatDateAndTime,
   DATE_FORMAT
 };
