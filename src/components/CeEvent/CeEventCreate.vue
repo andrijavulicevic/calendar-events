@@ -201,12 +201,22 @@ export default {
     calculateEndMinDate() {
       return addDays(new Date(this.chosenStart.date), -1).toISOString();
     },
+    concatDateAndTime(date, time) {
+      if (!time) return date;
+      return `${date} ${time}`;
+    },
     saveEvent() {
       console.log(this.newEvent);
       this.$validator.validate().then(valid => {
         if (!valid) return;
-        this.newEvent.start = `${this.chosenStart.date} ${this.chosenStart.time}`.trim();
-        this.newEvent.end = `${this.chosenEnd.date} ${this.chosenEnd.time}`.trim();
+        this.newEvent.start = this.concatDateAndTime(
+          this.chosenStart.date,
+          this.chosenStart.time
+        );
+        this.newEvent.end = this.concatDateAndTime(
+          this.chosenEnd.date,
+          this.chosenEnd.time
+        );
         this.$store.dispatch(CREATE_EVENT, this.newEvent).then(() => {
           this.$emit("close");
         });
