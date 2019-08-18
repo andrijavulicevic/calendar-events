@@ -6,6 +6,12 @@ function formatDate(date) {
   return format(date, DATE_FORMAT);
 }
 
+function formatForDisplaying(date) {
+  const time = date.split(" ")[1];
+  if (time) return format(date, "MMM Qo YYYY, HH:mm");
+  return format(date, "MMM Qo YYYY");
+}
+
 function getYear(date) {
   return format(date, "YYYY");
 }
@@ -44,5 +50,5 @@ export {
   getTime,
   nthDay,
   concatDateAndTime,
-  DATE_FORMAT
+  formatForDisplaying
 };

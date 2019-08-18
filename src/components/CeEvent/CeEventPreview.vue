@@ -14,9 +14,15 @@
       </v-btn>
     </v-toolbar>
     <v-card-text>
+      <v-layout>
+        <v-flex class="mb-5">
+          <v-icon>mdi-calendar</v-icon> {{ event.start | date }} -
+          {{ event.end | date }}
+        </v-flex>
+      </v-layout>
       <v-layout justify-start>
-        <v-flex>
-          <v-sheet class="mt-3 mb-5">{{ event.details }}</v-sheet>
+        <v-flex class="mb-5">
+          <v-icon>mdi-card-text</v-icon> {{ event.details }}
         </v-flex>
       </v-layout>
       <v-layout justify-start>
