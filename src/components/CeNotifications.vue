@@ -29,10 +29,7 @@
             <v-list-item-subtitle>{{
               pendingEvent.details
             }}</v-list-item-subtitle>
-            <span
-              >{{ pendingEvent.start | date }} -
-              {{ pendingEvent.end | date }}</span
-            >
+            <CeFormatedDate :start="pendingEvent.start" :end="pendingEvent.end" />
             <span>{{ pendingEvent.location }}</span>
           </v-list-item-content>
 

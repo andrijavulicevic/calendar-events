@@ -17,7 +17,7 @@
       <v-layout>
         <v-flex class="mb-5">
           <v-icon>mdi-calendar</v-icon> 
-          <span class="ml-3">{{ event.start | date }} - {{ event.end | date }}</span>
+          <CeFormatedDate class="ml-3" :start="event.start" :end="event.end" />
         </v-flex>
       </v-layout>
       <v-layout class="mb-5">
@@ -56,6 +56,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import CeFormatedDate from "../CeFormatedDate";
 
 export default {
   props: {
@@ -64,6 +65,7 @@ export default {
       required: true
     }
   },
+  components: { CeFormatedDate },
   computed: {
     participants() {
       if (this.event.participants) return this.event.participants.map(participant => participant.email);
