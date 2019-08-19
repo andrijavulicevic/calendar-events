@@ -16,26 +16,26 @@
     <v-card-text>
       <v-layout>
         <v-flex class="mb-5">
-          <v-icon>mdi-calendar</v-icon> 
+          <v-icon>mdi-calendar</v-icon>
           <CeFormatedDate class="ml-3" :start="event.start" :end="event.end" />
         </v-flex>
       </v-layout>
       <v-layout class="mb-5">
-        <v-icon v-if="isPublicEvent">mdi-earth</v-icon> 
+        <v-icon v-if="isPublicEvent">mdi-earth</v-icon>
         <v-icon v-else>mdi-account-group</v-icon>
         <span class="ml-3">{{ event.visibility }}</span>
       </v-layout>
       <v-layout justify-start>
         <v-flex class="mb-5">
-          <v-icon>mdi-card-text</v-icon> 
+          <v-icon>mdi-card-text</v-icon>
           <span class="ml-3">{{ event.details }}</span>
         </v-flex>
       </v-layout>
       <v-layout justify-start>
         <v-flex>
-          <v-icon>mdi-map-marker</v-icon> 
+          <v-icon>mdi-map-marker</v-icon>
           <span class="ml-3">{{ event.location }}</span>
-          </v-flex>
+        </v-flex>
       </v-layout>
       <v-layout justify-start class="ce-preview-block">
         <v-flex v-if="event.participants">
@@ -68,7 +68,8 @@ export default {
   components: { CeFormatedDate },
   computed: {
     participants() {
-      if (this.event.participants) return this.event.participants.map(participant => participant.email);
+      if (this.event.participants)
+        return this.event.participants.map(participant => participant.email);
       return null;
     },
     ...mapGetters({

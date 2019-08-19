@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { isSameDay } from 'date-fns';
-import { formatForDisplaying } from '../utils/date-utils';
+import { isSameDay } from "date-fns";
+import { formatForDisplaying } from "../utils/date-utils";
 
 export default {
   props: {
@@ -33,9 +33,11 @@ export default {
       } else if (this.areDatesSameDate && !this.isTimeInString) {
         return formatForDisplaying(this.start);
       } else {
-        return `${formatForDisplaying(this.start)} - ${formatForDisplaying(this.end)}`; 
+        return `${formatForDisplaying(this.start)} - ${formatForDisplaying(
+          this.end
+        )}`;
       }
     }
   }
-}
+};
 </script>

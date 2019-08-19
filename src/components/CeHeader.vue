@@ -16,7 +16,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { LOGOUT } from "../store/actions.type";
-import CeNotifications from "./CeNotifications";
+import CeNotifications from "./CeNotifications/CeNotificationsModal";
 
 export default {
   components: { CeNotifications },

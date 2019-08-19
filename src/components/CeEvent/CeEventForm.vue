@@ -73,7 +73,7 @@
         ></v-textarea>
 
         <v-select
-          v-show="isPrivateEvent" 
+          v-show="isPrivateEvent"
           v-model="calendarEvent.participants"
           :items="participants"
           label="Participants"

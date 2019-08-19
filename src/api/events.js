@@ -20,7 +20,8 @@ async function loadEventsForUser(user) {
 async function loadPendingEvents(user) {
   await simulateLoading();
   return events.filter(event => {
-    if (event.participants.length === 0) return false;
+    if (event.visibility === "Public") return false;
+    if (!event.participants || event.participants.length === 0) return false;
     if (event.participants.find(p => p.email === user.email && !p.accepted)) {
       return true;
     }
