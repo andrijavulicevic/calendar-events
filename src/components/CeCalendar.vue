@@ -173,6 +173,10 @@ export default {
       this.end = end;
     },
     openCreateEvent(date) {
+      if (this.selectedElement) {
+        this.selectedElement = null;
+        return;
+      }
       // round time to 30 minutes intervals
       if (date.time) {
         const [hour, minutes] = date.time.split(":");
