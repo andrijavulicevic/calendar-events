@@ -8,8 +8,8 @@ function formatDate(date) {
 
 function formatForDisplaying(date) {
   const time = date.split(" ")[1];
-  if (time) return format(date, "MMM Qo YYYY, HH:mm");
-  return format(date, "MMM Qo YYYY");
+  if (time) return format(date, "MMM Do YYYY, HH:mm");
+  return format(date, "MMM Do YYYY");
 }
 
 function getYear(date) {
