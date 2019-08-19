@@ -66,7 +66,6 @@ const events = [
     visibility: "Public",
     details: "Traveling to Rome",
     location: "Rome",
-    participants: [{ email: "admin@doe.com", accepted: false }],
     color: "orange",
     owner: "john@doe.com"
   },
@@ -75,7 +74,7 @@ const events = [
     name: "Jane's birthday",
     start: "2019-08-27",
     end: "2019-08-27",
-    visibility: "Public",
+    visibility: "Private",
     details: "Birthday party for Jane",
     location: "Jane's home",
     participants: [

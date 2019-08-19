@@ -73,6 +73,7 @@
         ></v-textarea>
 
         <v-select
+          v-show="isPrivateEvent" 
           v-model="calendarEvent.participants"
           :items="participants"
           label="Participants"
@@ -180,7 +181,10 @@ export default {
     ...mapGetters({
       loading: "getEventsLoading",
       participants: "getAllParticipants"
-    })
+    }),
+    isPrivateEvent() {
+      return this.calendarEvent.visibility === "Private";
+    }
   },
   watch: {
     "chosenStart.date": {
@@ -200,6 +204,11 @@ export default {
       } else {
         this.chosenStart.time = null;
         this.chosenEnd.time = null;
+      }
+    },
+    isPrivateEvent(newVal) {
+      if (!newVal) {
+        this.calendarEvent.participants = [];
       }
     }
   },

@@ -16,20 +16,29 @@
     <v-card-text>
       <v-layout>
         <v-flex class="mb-5">
-          <v-icon>mdi-calendar</v-icon> {{ event.start | date }} -
-          {{ event.end | date }}
+          <v-icon>mdi-calendar</v-icon> 
+          <span class="ml-3">{{ event.start | date }} - {{ event.end | date }}</span>
         </v-flex>
+      </v-layout>
+      <v-layout class="mb-5">
+        <v-icon v-if="isPublicEvent">mdi-earth</v-icon> 
+        <v-icon v-else>mdi-account-group</v-icon>
+        <span class="ml-3">{{ event.visibility }}</span>
       </v-layout>
       <v-layout justify-start>
         <v-flex class="mb-5">
-          <v-icon>mdi-card-text</v-icon> {{ event.details }}
+          <v-icon>mdi-card-text</v-icon> 
+          <span class="ml-3">{{ event.details }}</span>
         </v-flex>
       </v-layout>
       <v-layout justify-start>
-        <v-flex> <v-icon>mdi-map-marker</v-icon> {{ event.location }} </v-flex>
+        <v-flex>
+          <v-icon>mdi-map-marker</v-icon> 
+          <span class="ml-3">{{ event.location }}</span>
+          </v-flex>
       </v-layout>
       <v-layout justify-start class="ce-preview-block">
-        <v-flex>
+        <v-flex v-if="event.participants">
           <v-list>
             <v-subheader>{{ event.participants.length }} guests</v-subheader>
             <v-list-item v-for="participant in participants" :key="participant">
@@ -57,13 +66,17 @@ export default {
   },
   computed: {
     participants() {
-      return this.event.participants.map(participant => participant.email);
+      if (this.event.participants) return this.event.participants.map(participant => participant.email);
+      return null;
     },
     ...mapGetters({
       isOrganizer: "getIsOrganizer"
     }),
     enabledEditAndDelete() {
       return this.event.owned || this.isOrganizer;
+    },
+    isPublicEvent() {
+      return this.event.visibility === "Public";
     }
   },
   methods: {
