@@ -82,7 +82,6 @@ const actions = {
       commit(STOP_EVENTS_LOADING);
       dispatch(LOAD_EVENTS);
     } catch (error) {
-      console.log(error);
       commit(STOP_EVENTS_LOADING);
     }
   },
@@ -98,7 +97,7 @@ const actions = {
         allParticipants.filter(email => email !== currentUserEmail)
       );
     } catch (error) {
-      console.log(error);
+      //
     }
   },
   [DELETE_EVENT]: async ({ commit, dispatch, rootState }, event) => {
@@ -109,7 +108,6 @@ const actions = {
       commit(SET_EVENTS_ERROR, null);
       dispatch(LOAD_EVENTS);
     } catch (error) {
-      console.log(error);
       commit(STOP_EVENTS_LOADING);
       commit(SET_EVENTS_ERROR, error.message);
     }
@@ -122,7 +120,6 @@ const actions = {
       commit(SET_EVENTS_ERROR, null);
       dispatch(LOAD_EVENTS);
     } catch (error) {
-      console.log(error);
       commit(STOP_EVENTS_LOADING);
       commit(SET_EVENTS_ERROR, error.message);
     }
@@ -135,7 +132,6 @@ const actions = {
       commit(SET_EVENTS_ERROR, null);
       commit(SET_PENDING_EVENTS, events);
     } catch (error) {
-      console.log(error);
       commit(STOP_EVENTS_LOADING);
       commit(SET_EVENTS_ERROR, error.message);
     }

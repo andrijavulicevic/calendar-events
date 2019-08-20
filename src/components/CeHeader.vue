@@ -5,9 +5,9 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
 
-    <span v-if="user" class="mr-5">{{ user.email }}</span>
+    <span v-if="user" data-cy="user-email" class="mr-5">{{ user.email }}</span>
     <CeNotifications class="mr-7" :pendingEvents="pendingEvents" />
-    <v-btn @click="logout">
+    <v-btn data-cy="logout-btn" @click="logout">
       <span>Logout</span>
     </v-btn>
   </v-app-bar>

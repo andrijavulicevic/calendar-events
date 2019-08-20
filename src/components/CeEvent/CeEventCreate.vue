@@ -46,7 +46,6 @@ export default {
   }),
   methods: {
     saveEvent(newEvent) {
-      console.log(newEvent);
       this.$store.dispatch(CREATE_EVENT, newEvent).then(() => {
         this.$emit("close");
       });

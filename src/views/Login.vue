@@ -9,6 +9,7 @@
           <v-card-text>
             <v-form>
               <v-text-field
+                name="email"
                 v-model="email"
                 v-validate="'required|email'"
                 :error-messages="errors.collect('email')"
@@ -20,6 +21,7 @@
               ></v-text-field>
 
               <v-text-field
+                name="password"
                 type="password"
                 v-model="password"
                 v-validate="'required|min:4'"
@@ -32,7 +34,7 @@
               ></v-text-field>
 
               <v-layout v-if="error" class="mt-3">
-                <span class="red--text">{{ error }}</span>
+                <span class="red--text" data-cy="login-error">{{ error }}</span>
               </v-layout>
 
               <v-layout justify-end align-end>
@@ -45,7 +47,11 @@
                 </v-flex>
                 <v-flex>
                   <v-layout justify-end>
-                    <v-btn class="ml-5 mt-5" @click="login" :loading="loading"
+                    <v-btn
+                      class="ml-5 mt-5"
+                      data-cy="login-btn"
+                      @click="login"
+                      :loading="loading"
                       >Login</v-btn
                     >
                   </v-layout>
