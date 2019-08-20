@@ -41,6 +41,9 @@ export default {
       type: String
     }
   },
+  created() {
+    this.date = this.initialDate;
+  },
   data: () => ({
     menu: false,
     date: ""
