@@ -40,6 +40,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { LOAD_ALL_PARTICIPANTS, DELETE_EVENT } from "../store/actions.type";
+import { GET_EVENTS } from "../store/getters.type";
 
 import CeCalendar from "../components/CeCalendar";
 import CeEventCreate from "../components/CeEvent/CeEventCreate";
@@ -64,7 +65,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      events: "getEvents"
+      events: GET_EVENTS
     }),
     actionMessage() {
       return `Are you sure you want to delete <span class="font-weight-bold">${this.selectedEvent.name}</span> from calendar? 

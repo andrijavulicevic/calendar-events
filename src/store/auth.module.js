@@ -14,6 +14,13 @@ import {
   START_AUTH_LOADING,
   STOP_AUTH_LOADING
 } from "./mutations.type";
+import {
+  GET_CURRENT_USER,
+  GET_IS_LOGGED_IN,
+  GET_IS_ORGANIZER,
+  GET_AUTH_ERROR,
+  GET_AUTH_LOADING
+} from "./getters.type";
 import { login, register } from "../api/index";
 import router from "../router/";
 
@@ -26,11 +33,11 @@ const state = {
 };
 
 const getters = {
-  getCurrentUser: state => state.currentUser,
-  getIsLoggedIn: state => state.isLoggedIn,
-  getIsOrganizer: state => state.isOrganizer,
-  getError: state => state.error,
-  getAuthLoading: state => state.loading
+  [GET_CURRENT_USER]: state => state.currentUser,
+  [GET_IS_LOGGED_IN]: state => state.isLoggedIn,
+  [GET_IS_ORGANIZER]: state => state.isOrganizer,
+  [GET_AUTH_ERROR]: state => state.error,
+  [GET_AUTH_LOADING]: state => state.loading
 };
 
 const mutations = {

@@ -19,6 +19,13 @@ import {
   SET_EVENTS_ERROR
 } from "./mutations.type";
 import {
+  GET_EVENTS,
+  GET_PENDING_EVENTS,
+  GET_EVENTS_ERROR,
+  GET_ALL_PARTICIPANTS,
+  GET_EVENTS_LOADING
+} from "./getters.type";
+import {
   loadEventsForUser,
   loadPendingEvents,
   createEventForUser,
@@ -38,11 +45,11 @@ const state = {
 };
 
 const getters = {
-  getEvents: state => state.events,
-  getPendingEvents: state => state.pendingEvents,
-  getEventsError: state => state.error,
-  getAllParticipants: state => state.allParticipants,
-  getEventsLoading: state => state.loading
+  [GET_EVENTS]: state => state.events,
+  [GET_PENDING_EVENTS]: state => state.pendingEvents,
+  [GET_EVENTS_ERROR]: state => state.error,
+  [GET_ALL_PARTICIPANTS]: state => state.allParticipants,
+  [GET_EVENTS_LOADING]: state => state.loading
 };
 
 const mutations = {

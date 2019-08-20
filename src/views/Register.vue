@@ -85,6 +85,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { REGISTER, RESET_ERROR } from "../store/actions.type";
+import { GET_AUTH_ERROR, GET_AUTH_LOADING } from "../store/getters.type";
 
 export default {
   data: () => ({
@@ -94,8 +95,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      error: "getError",
-      loading: "getAuthLoading"
+      error: GET_AUTH_ERROR,
+      loading: GET_AUTH_LOADING
     })
   },
   methods: {

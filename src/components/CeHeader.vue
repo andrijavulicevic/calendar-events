@@ -15,13 +15,17 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { GET_CURRENT_USER, GET_PENDING_EVENTS } from "../store/getters.type";
 import { LOGOUT } from "../store/actions.type";
 import CeNotifications from "./CeNotifications/CeNotificationsModal";
 
 export default {
   components: { CeNotifications },
   computed: {
-    ...mapGetters({ user: "getCurrentUser", pendingEvents: "getPendingEvents" })
+    ...mapGetters({
+      user: GET_CURRENT_USER,
+      pendingEvents: GET_PENDING_EVENTS
+    })
   },
   methods: {
     logout() {

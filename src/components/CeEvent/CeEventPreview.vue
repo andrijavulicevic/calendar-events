@@ -56,6 +56,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { GET_IS_ORGANIZER } from "../../store/getters.type";
 import CeFormatedDate from "../CeFormatedDate";
 
 export default {
@@ -73,7 +74,7 @@ export default {
       return null;
     },
     ...mapGetters({
-      isOrganizer: "getIsOrganizer"
+      isOrganizer: GET_IS_ORGANIZER
     }),
     enabledEditAndDelete() {
       return this.event.owned || this.isOrganizer;

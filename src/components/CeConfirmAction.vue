@@ -21,6 +21,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { GET_EVENTS_LOADING } from "../store/getters.type";
 
 export default {
   props: {
@@ -38,7 +39,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      loading: "getEventsLoading"
+      loading: GET_EVENTS_LOADING
     })
   }
 };

@@ -107,6 +107,10 @@
 <script>
 import { mapGetters } from "vuex";
 import { addDays, isAfter } from "date-fns";
+import {
+  GET_EVENTS_LOADING,
+  GET_ALL_PARTICIPANTS
+} from "../../store/getters.type";
 import { concatDateAndTime } from "../../utils/date-utils";
 import CeDatePicker from "./CeDatePicker";
 import CeTimePicker from "./CeTimePicker";
@@ -179,8 +183,8 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      loading: "getEventsLoading",
-      participants: "getAllParticipants"
+      loading: GET_EVENTS_LOADING,
+      participants: GET_ALL_PARTICIPANTS
     }),
     isPrivateEvent() {
       return this.calendarEvent.visibility === "Private";
