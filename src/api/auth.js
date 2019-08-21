@@ -12,6 +12,8 @@ async function login(email, password) {
   if (existingUser.password !== password) {
     throw new Error("Invalid credentilas! Please, try again.");
   }
+
+  return existingUser;
 }
 
 async function register(email, password, confirmPassword) {

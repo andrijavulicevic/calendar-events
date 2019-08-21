@@ -18,6 +18,11 @@ const users = [
     email: "admin@doe.com",
     password: "password",
     role: "organizer"
+  },
+  {
+    email: "organizer@mail.com",
+    password: "password",
+    role: "organizer"
   }
 ];
 
@@ -30,7 +35,7 @@ const events = [
     visibility: "Private",
     details: "Discussing important matters",
     location: "Conf room 1",
-    participants: [{ email: "admin@doe.com", accepted: true }],
+    participants: [{ email: "jack@doe.com", accepted: true }],
     color: "blue",
     owner: "john@doe.com"
   },
@@ -82,8 +87,34 @@ const events = [
       { email: "admin@doe.com", accepted: false },
       { email: "jack@doe.com", accepted: false }
     ],
-    color: "orange",
+    color: "red",
     owner: "jane@doe.com"
+  },
+  {
+    id: "ddd3cdfa-7671-47ef-af0c-cd8a10f587d3",
+    name: "Celebration",
+    start: "2019-08-02 12:00",
+    end: "2019-08-02 18:00",
+    visibility: "Private",
+    details: "Celebration new business success",
+    location: "Local pub",
+    participants: [
+      { email: "jane@doe.com", accepted: false },
+      { email: "jack@doe.com", accepted: false }
+    ],
+    color: "yellow",
+    owner: "john@doe.com"
+  },
+  {
+    id: "ae7ddeb1-feba-4ba9-9562-e6ec702ac4dc",
+    name: "Some public holiday",
+    start: "2019-08-09",
+    end: "2019-08-09",
+    visibility: "Public",
+    details: "Celebration some important thing in world",
+    location: "Globe wide",
+    color: "purple",
+    owner: "john@doe.com"
   }
 ];
 

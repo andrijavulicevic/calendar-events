@@ -5,6 +5,7 @@ import { uuidv4 } from "../utils/uuid-generator";
 async function loadEventsForUser(user) {
   await simulateLoading();
   if (user.role === "organizer") return events;
+  console.log(`==========`);
   return events.filter(event => {
     if (event.owner === user.email) {
       event.owned = true;

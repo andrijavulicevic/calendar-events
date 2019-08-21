@@ -62,8 +62,8 @@ const actions = {
   [LOGIN]: async ({ commit, dispatch }, { email, password }) => {
     commit(START_AUTH_LOADING);
     try {
-      await login(email, password);
-      commit(SET_USER, { email, password });
+      const user = await login(email, password);
+      commit(SET_USER, user);
       commit(SET_AUTH_ERROR, null);
       commit(STOP_AUTH_LOADING);
       dispatch(LOAD_EVENTS);
