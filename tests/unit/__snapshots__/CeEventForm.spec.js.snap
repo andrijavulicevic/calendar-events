@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CeEventForm.vue should match snapshot 1`] = `
+<div class="elevation-12 v-card v-sheet theme--light">
+  <header class="v-sheet v-sheet--tile theme--dark v-toolbar v-toolbar--flat primary">
+    <div class="v-toolbar__content" style="height: 64px;">
+      <div class="v-toolbar__title">Create event</div>
+      <div class="spacer"></div> <button type="button" class="v-btn v-btn--flat v-btn--icon v-btn--round theme--dark v-size--default"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-close theme--dark"></i></span></button>
+    </div>
+  </header>
+  <div class="v-card__text">
+    <form class="v-form" novalidate="novalidate">
+      <div class="v-input theme--light v-text-field">
+        <div class="v-input__control">
+          <div class="v-input__slot">
+            <div class="v-text-field__slot"><label for="input-113" class="v-label theme--light" style="left: 0px; position: absolute;">Name</label><input data-vv-name="calendarEvent.name" data-vv-as="name" required="required" id="input-113" type="text"></div>
+          </div>
+          <div class="v-text-field__details">
+            <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="layout justify-space-between">
+        <div class="flex md5">
+          <div class="v-input v-input--is-label-active v-input--is-dirty v-input--is-readonly theme--light v-text-field">
+            <div class="v-input__prepend-outer">
+              <div class="v-input__icon v-input__icon--prepend"><i aria-hidden="true" class="v-icon notranslate mdi mdi-calendar theme--light"></i></div>
+            </div>
+            <div class="v-input__control">
+              <div class="v-input__slot">
+                <div class="v-text-field__slot"><label for="input-118" class="v-label v-label--active theme--light" style="left: 0px; position: absolute;">Start date</label><input id="input-118" readonly="readonly" type="text"></div>
+              </div>
+              <div class="v-text-field__details">
+                <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="v-menu">
+            <div role="menu" class="v-menu__content theme--light " style="max-height: auto; min-width: 290px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"></div>
+          </div>
+        </div>
+        <div class="flex md5">
+          <div class="v-input v-input--is-label-active v-input--is-dirty v-input--is-readonly theme--light v-text-field">
+            <div class="v-input__prepend-outer">
+              <div class="v-input__icon v-input__icon--prepend"><i aria-hidden="true" class="v-icon notranslate mdi mdi-calendar theme--light"></i></div>
+            </div>
+            <div class="v-input__control">
+              <div class="v-input__slot">
+                <div class="v-text-field__slot"><label for="input-126" class="v-label v-label--active theme--light" style="left: 0px; position: absolute;">End date</label><input id="input-126" readonly="readonly" type="text"></div>
+              </div>
+              <div class="v-text-field__details">
+                <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+              </div>
+            </div>
+          </div>
+          <div class="v-menu">
+            <div role="menu" class="v-menu__content theme--light " style="max-height: auto; min-width: 290px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"></div>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <div class="v-input v-input--is-label-active v-input--is-dirty theme--light v-input--selection-controls v-input--checkbox accent--text">
+        <div class="v-input__control">
+          <div class="v-input__slot">
+            <div class="v-input--selection-controls__input"><input aria-checked="true" id="input-132" role="checkbox" type="checkbox" value="">
+              <div class="v-input--selection-controls__ripple accent--text"></div><i aria-hidden="true" class="v-icon notranslate material-icons theme--light accent--text">$vuetify.icons.checkboxOn</i>
+            </div><label for="input-132" class="v-label theme--light" style="left: 0px; position: relative;">All day event</label>
+          </div>
+          <div class="v-messages theme--light accent--text"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+        </div>
+      </div>
+      <div class="v-input v-input--is-label-active v-input--is-dirty theme--light v-text-field v-select">
+        <div class="v-input__control">
+          <div role="button" aria-haspopup="listbox" aria-expanded="false" aria-owns="list-136" class="v-input__slot">
+            <div class="v-select__slot"><label for="input-136" class="v-label v-label--active theme--light" style="left: 0px; position: absolute;">Visibility</label>
+              <div class="v-select__selections">
+                <div class="v-select__selection v-select__selection--comma">Private</div><input id="input-136" readonly="readonly" type="text" aria-readonly="true">
+              </div>
+              <div class="v-input__append-inner">
+                <div class="v-input__icon v-input__icon--append"><i aria-hidden="true" class="v-icon notranslate material-icons theme--light">$vuetify.icons.dropdown</i></div>
+              </div>
+            </div>
+            <div class="v-menu">
+              <div class="v-menu__content theme--light " style="max-height: 304px; min-width: 0px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"></div>
+            </div>
+          </div>
+          <div class="v-text-field__details">
+            <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-input v-textarea theme--light v-text-field">
+        <div class="v-input__control">
+          <div class="v-input__slot">
+            <div class="v-text-field__slot"><label for="input-143" class="v-label theme--light" style="left: 0px; position: absolute;">Details</label><textarea data-vv-name="calendarEvent.details" data-vv-as="details" id="input-143" rows="3"></textarea></div>
+          </div>
+          <div class="v-text-field__details">
+            <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-input theme--light v-text-field v-select">
+        <div class="v-input__control">
+          <div role="button" aria-haspopup="listbox" aria-expanded="false" aria-owns="list-146" class="v-input__slot">
+            <div class="v-select__slot"><label for="input-146" class="v-label theme--light" style="left: 0px; position: absolute;">Participants</label>
+              <div class="v-select__selections"><input id="input-146" readonly="readonly" type="text" aria-readonly="true"></div>
+              <div class="v-input__append-inner">
+                <div class="v-input__icon v-input__icon--append"><i aria-hidden="true" class="v-icon notranslate material-icons theme--light">$vuetify.icons.dropdown</i></div>
+              </div>
+            </div>
+            <div class="v-menu">
+              <div class="v-menu__content theme--light " style="max-height: 304px; min-width: 0px; max-width: auto; top: 12px; left: 0px; transform-origin: top left; z-index: 0; display: none;"></div>
+            </div>
+          </div>
+          <div class="v-text-field__details">
+            <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="v-input theme--light v-text-field">
+        <div class="v-input__control">
+          <div class="v-input__slot">
+            <div class="v-text-field__slot"><label for="input-153" class="v-label theme--light" style="left: 0px; position: absolute;">Location</label><input data-vv-name="calendarEvent.location" data-vv-as="location" required="required" id="input-153" type="text"></div>
+          </div>
+          <div class="v-text-field__details">
+            <div class="v-messages theme--light"><span name="message-transition" tag="div" class="v-messages__wrapper"></span></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="v-card__actions">
+    <div class="spacer"></div> <button type="button" class="v-btn v-btn--flat v-btn--text theme--light v-size--default blue--text text--darken-1"><span class="v-btn__content">Create</span></button>
+  </div>
+</div>
+`;
