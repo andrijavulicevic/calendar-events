@@ -1,5 +1,13 @@
 # calendar-events
 
+## Tools
+- [VueJS](https://vuejs.org/v2/guide/)
+- [Vuex](https://vuex.vuejs.org/) - State management library
+- [VueRouter](https://router.vuejs.org/) - Routing library
+- [Vuetify](https://vuetifyjs.com/en/getting-started/quick-start) - Material Design Component Framework
+- [VuexPersist](https://github.com/championswimmer/vuex-persist) - Vuex plugin to persist the store
+- [date-fns](https://date-fns.org) - Date manipulation library
+
 ## Project setup
 ```
 npm install
