@@ -10,6 +10,7 @@
     <v-card-text>
       <v-form>
         <v-text-field
+          name="name"
           v-model="calendarEvent.name"
           v-validate="'required'"
           :error-messages="errors.collect('calendarEvent.name')"
@@ -57,22 +58,21 @@
         <v-checkbox v-model="allDayEvent" label="All day event"></v-checkbox>
 
         <v-select
+          name="visibility"
           v-model="calendarEvent.visibility"
           :items="visibilityOptions"
           label="Visibility"
         ></v-select>
 
         <v-textarea
+          name="details"
           v-model="calendarEvent.details"
-          v-validate="'required'"
-          :error-messages="errors.collect('calendarEvent.details')"
           label="Details"
-          data-vv-name="calendarEvent.details"
-          data-vv-as="details"
           rows="3"
         ></v-textarea>
 
         <v-select
+          name="participants"
           v-show="isPrivateEvent"
           v-model="calendarEvent.participants"
           :items="participants"
@@ -81,6 +81,7 @@
         ></v-select>
 
         <v-text-field
+          name="location"
           v-model="calendarEvent.location"
           v-validate="'required'"
           :error-messages="errors.collect('calendarEvent.location')"
